@@ -1,0 +1,12 @@
+{
+	int i;
+	bool b;
+	i = 10;
+	if (i > 0 && i < 10) {
+		b = true;
+	}
+	else {
+		b = false;
+		i = i / 10;
+	}
+}
