@@ -34,4 +34,5 @@ L2:
 ```
 
 АСД в GraphViz:
-![AST GraphViz sample](ast.png "AST GraphViz")
+
+<img src="ast.png" alt="ast" width="200"/>
