@@ -1,18 +1,18 @@
-## The Dragon Book compiler on C++
+## The Dragon Book Compiler in C++
 
-Синтаксически управляемый транслятор на базе метода рекурсивного спуска для генерации промежуточного трехадресного кода с возможностью экспорта АСД в JSON и GraphViz (Dot) файлы
+A syntax-directed translator based on the recursive descent method for generating intermediate three-address code with the ability to export AST to JSON and GraphViz (Dot) files.
 
-### Использование
+### Usage
 
-```cpp
+```bash
 Usage: <app_name> input_file [options]
    -j, --json filepath     output ast to json in filepath
    -d, --dot filepath      output ast to dot in filepath
 ```
 
-### Пример
+### Example
 
-Пример вывода следующей программы:
+An example output of the following program:
 
 ```
 {
@@ -24,7 +24,8 @@ Usage: <app_name> input_file [options]
 }
 ```
 
-Трёхадресный код:
+Three-address code:
+
 ```
 L1:     i = 0
 L3:     iffalse i < 100 goto L2
@@ -33,6 +34,6 @@ L4:     i = i + 1
 L2:
 ```
 
-АСД в GraphViz:
+AST in GraphViz:
 
 <img src="ast.png" alt="ast" width="200"/>

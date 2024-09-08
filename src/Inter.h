@@ -2,7 +2,7 @@
 #include "Lexer.h"
 #include "Symbols.h"
 #include <iostream>
-#include <nlohmann/json.hpp>
+#include "nlohmann/json.hpp"
 using json = nlohmann::json;
 
 /*
@@ -14,7 +14,7 @@ public:
 
 	int lexline;
 	void error(std::string s) {
-		throw std::exception(s.c_str());
+		throw std::runtime_error(s);
 	}
 
 	virtual json toJson() {

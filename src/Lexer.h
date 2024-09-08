@@ -93,7 +93,7 @@ public:
 
 		if (!is.is_open()) {
 			std::stringstream ss; ss << "Can not open file " << filename;
-			throw std::exception(ss.str().c_str());
+			throw std::runtime_error(ss.str());
 		}
 	}
 

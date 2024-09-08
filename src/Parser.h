@@ -48,7 +48,7 @@ public:
 	void error(std::string s) {
 		std::stringstream ss;
 		ss << "near line " << lex->line << ": " << s;
-		throw std::exception(ss.str().c_str());
+		throw std::runtime_error(ss.str());
 	}
 	void match(int t) {
 		if (look->tag == t) move();
