@@ -26,7 +26,7 @@ public:
 };
 
 /*
-	Токен для целых чисел
+	Integer number token
 */
 class Num : public Token {
 public:
@@ -40,7 +40,7 @@ public:
 };
 
 /*
-	Токен для зарезервированных ключевых слов и идентификаторов
+	Token for keyword reserved identifiers
 */
 class Word : public Token {
 public:
@@ -72,7 +72,7 @@ std::shared_ptr<Word> Word::False = std::make_shared<Word>("false", FALSE);
 std::shared_ptr<Word> Word::Temp  = std::make_shared<Word>("t", TEMP);
 
 /*
-	Токен для чисел с плавающей точкой
+	Floating point number token
 */
 class Real : public Token {
 public:
@@ -104,32 +104,32 @@ public:
 
 	void reserve(std::shared_ptr<Word> w) { words.emplace(w->lexeme, w); }
 
-	// Чтение очередного входного символа из потока
+	// Read next character from input stream
 	void readch() {
 		is.get(peek);
 		if (is.eof()) peek = '\0';
 		//std::cout << peek;
 	}
 
-	// Чтение очередного входного символа и проверка на соотвествие аргументу
+	// Read next character from input stream and compare with c
 	bool readch(char c) { 
-		readch(); // Может быть проблема
+		readch(); // TODO: check if it is correct
 		if (peek != c) return false;
 		peek = ' ';
 		return true;
 	}
 
-	// Распознать очередной токен из потока
+	// Recognize next token
 	std::shared_ptr<Token> scan() {
 
-		// Пропуск пробельных символов
+		// Skip whitespace characters
 		for (;; readch()) {
 			if (peek == ' ' || peek == '\t') continue;
 			else if (peek == '\n') line++;
 			else break;
 		}
 
-		// Распознание составных токенов из более 1 символа
+		// Recognize complex tokens that consist of two or more characters
 		switch (peek)
 		{
 		case '&':
@@ -160,7 +160,7 @@ public:
 			break;
 		}
 
-		// Распознание чисел
+		// Number recognition
 		if (std::isdigit(peek)) {
 			int v = 0;
 			do {
@@ -178,7 +178,7 @@ public:
 			return std::make_shared<Real>(x);
 		}
 
-		// Распознание строк
+		// String recognition
 		if (std::isalpha(peek)) {
 			std::stringstream ss;
 			do {
@@ -191,7 +191,7 @@ public:
 			return w;
 		}
 
-		// Распознание прочих символов
+		// Other tokens recognition
 		std::shared_ptr<Token> t = std::make_shared<Token>(peek);
 		peek = ' ';
 		return t;

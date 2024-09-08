@@ -4,7 +4,7 @@
 #include "Inter.h"
 
 /*
-	Таблица символов
+	Symbol table
 */
 class Env {
 public:
@@ -26,7 +26,7 @@ private:
 
 class Parser {
 public:
-	std::shared_ptr<Env> top; // Текущая таблица символов
+	std::shared_ptr<Env> top; // Current or top symbol table
 	int used;
 	Parser(std::shared_ptr<Lexer> lexer) : lex(lexer), used(0) { 
 		lexer->reserve(std::make_shared<Word>("if", IF));
@@ -57,10 +57,10 @@ public:
 
 	// program -> block
 	std::shared_ptr<Stmt> program() {
-		// Генерация абстрактного синтаксического дерева
+		// It starts to produce AST
 		std::shared_ptr<Stmt> s = block();
 	
-		// Генерация промежуточного трехзначного кода
+		// It generates the beginning of the program
 		int begin = s->newlabel();
 		int after = s->newlabel();
 		s->emitlabel(begin);
@@ -116,7 +116,7 @@ public:
 
 	std::shared_ptr<Stmt> stmt() {
 		std::shared_ptr<Expr> x; std::shared_ptr<Stmt> s, s1, s2;
-		std::shared_ptr<Stmt> savedStmt; // Сохранение внешнего цикла для break;
+		std::shared_ptr<Stmt> savedStmt; // Save enclosing statement for break
 
 		switch (look->tag) {
 		case ';':

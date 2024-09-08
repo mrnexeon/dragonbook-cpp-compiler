@@ -1,4 +1,4 @@
-﻿#include <iostream>
+#include <iostream>
 #include "Lexer.h"
 #include "Parser.h"
 
@@ -39,7 +39,7 @@ int main(int argc, char* argv[])
 				return 0;
 			}
 
-			// Запись АСД в формате json
+			// Write AST to json
 			json j = ast->toJson();
 			os.open(argv[a]);
 			if (os.is_open()) os << j.dump();

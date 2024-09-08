@@ -6,7 +6,7 @@
 using json = nlohmann::json;
 
 /*
-	Узел синтаксического дерева
+	Node of an Abstract Syntax Tree
 */
 class Node {
 public:
@@ -27,7 +27,7 @@ public:
 		return id;
 	}
 
-	// Для генерации промежуточного трехадресного кода
+	// For generating intermediate three-address code?
 	static int labels;
 	static std::hash<Node*> hash;
 
@@ -40,7 +40,7 @@ int Node::labels = 0;
 std::hash<Node*> Node::hash = std::hash<Node*>();
 
 /*
-	Узел для выражений
+	Node for expressions
 */
 class Expr : public Node, public std::enable_shared_from_this<Expr> {
 public:
@@ -78,8 +78,8 @@ public:
 };
 
 /*
-	Узел временных переменных для трехадресного кода
-	(Не включен в АСД)
+	Node of temporary variables for three-address code?
+	(Not included into an AST)
 */
 class Temp : public Expr {
 public:
@@ -97,7 +97,7 @@ public:
 int Temp::count = 0;
 
 /*
-	Узел абстрактного оператора с двумя операндами
+	Node of an operator with two operands
 */
 class Op : public Expr {
 public:
@@ -112,7 +112,7 @@ public:
 };
 
 /*
-	Узел арифметической операции
+	Node of an arithmetic operation
 */
 class Arith : public Op {
 public:
@@ -153,7 +153,7 @@ public:
 };
 
 /*
-	Узел унарного оператора
+	Node of unary operator
 */
 class Unary : public Op {
 public:
@@ -190,7 +190,7 @@ public:
 };
 
 /*
-	Узел константы
+	Node of constant
 */
 class Constant : public Expr {
 public:
@@ -230,7 +230,7 @@ std::shared_ptr<Constant> Constant::True  = std::make_shared<Constant>(Word::Tru
 std::shared_ptr<Constant> Constant::False = std::make_shared<Constant>(Word::False, Type::Bool);
 
 /*
-	Узел идентификатора
+	Node of an identifier
 */
 class Id : public Expr {
 public:
@@ -252,7 +252,7 @@ public:
 };
 
 /*
-	Узел логической операции
+	Node of a Logical expression
 */
 class Logical : public Expr {
 public:
@@ -310,7 +310,7 @@ public:
 };
 
 /*
-	Узел операции ИЛИ
+	Node of OR logical expression
 */
 class Or : public Logical {
 public:
@@ -327,7 +327,7 @@ public:
 };
 
 /*
-	Узел операции И
+	Node of AND logical expression
 */
 class And : public Logical {
 public:
@@ -344,7 +344,7 @@ public:
 };
 
 /*
-	Узел операции НЕ
+	Node of NOT logical expression
 */
 class Not : public Logical {
 public:
@@ -360,7 +360,7 @@ public:
 };
 
 /*
-	Узел отношения
+	Node of relational expression
 */
 class Rel : public Logical {
 public:
@@ -403,7 +403,7 @@ public:
 	}
 };
 /*
-	Узел доступа к элементу массива
+	Node of an array element access
 */
 class Access : public Op {
 public:
@@ -445,12 +445,12 @@ public:
 };
 
 /*
-	Узел с инструкцией
+	Node of a statement
 */
 class Stmt : public Node {
 public:
 	Stmt() = default;
-	static std::shared_ptr<Stmt> Null; // Пустая последовательность инструкций
+	static std::shared_ptr<Stmt> Null; // Empty statement
 
 	json toJson() override {
 		if (this == Null.get()) return json({ {"name", "Empty" } });
@@ -470,7 +470,7 @@ public:
 		}
 	}
 
-	// Для генерации промежуточного трехадресного кода:
+	// For generating intermediate three-address code?
 	static std::shared_ptr<Stmt> Enclosing;
 	virtual void gen(int b, int a) {}
 	int after;
@@ -480,7 +480,7 @@ std::shared_ptr<Stmt> Stmt::Null	  = std::make_shared<Stmt>();
 std::shared_ptr<Stmt> Stmt::Enclosing = Null;
 
 /*
-	Узел блока If
+	If-condition statement node
 */
 class If : public Stmt {
 public:
@@ -519,7 +519,7 @@ public:
 };
 
 /*
-	Узел блока If-Else
+	Node of Else statement
 */
 class Else : public Stmt {
 public:
@@ -566,7 +566,7 @@ public:
 };
 
 /*
-	Узел блока While
+	Node of While loop
 */
 class While : public Stmt {
 public:
@@ -612,7 +612,7 @@ public:
 };
 
 /*
-	Узел блока Do-While
+	Node of Do-While loop
 */
 class Do : public Stmt {
 public:
@@ -655,7 +655,7 @@ public:
 };
 
 /*
-	Узел оператора присваивания 
+	Node of a assignment statement
 */
 class Set : public Stmt {
 public:
@@ -697,7 +697,7 @@ public:
 };
 
 /*
-	Узел оператора присваивания для элемента массива
+	Node of an array element assignment
 */
 class SetElem : public Stmt {
 public:
@@ -748,7 +748,7 @@ public:
 };
 
 /*
-	Узел с последовательностью инструкций
+	Node of a sequence of statements
 */
 class Seq : public Stmt {
 public:
@@ -788,7 +788,7 @@ public:
 };
 
 /*
-	Узел оператора выхода из цикла
+	Node of a loop break statement
 */
 class Break : public Stmt {
 public:

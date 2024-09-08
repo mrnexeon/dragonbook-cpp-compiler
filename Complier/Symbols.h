@@ -2,7 +2,7 @@
 #include "Lexer.h"
 
 /*
-	Токен для типов данных
+	Data Types Token
 */
 class Type : public Word {
 public:
@@ -32,7 +32,7 @@ std::shared_ptr<Type> Type::Char  = std::make_shared<Type>("char", BASIC, 1);
 std::shared_ptr<Type> Type::Bool  = std::make_shared<Type>("bool", BASIC, 1);
 
 /*
-	Токен для массивов
+	Data Array Token
 */
 class Array : public Type {
 public:
