@@ -4,7 +4,7 @@
 
 void printUsage(std::string exec) {
 	std::string filename = exec.substr(exec.find_last_of("/\\") + 1);
-	std::cout << "Usage: " << filename << " input_file [options]" << std::endl;
+	std::cout <<   "Usage: " << filename << " input_file [options]" << std::endl;
 	std::cout << '\t' << "-j, --json filepath" << '\t' << "output ast to json in filepath" << std::endl;
 	std::cout << '\t' << "-d, --dot filepath" << '\t' << "output ast to dot in filepath" << std::endl;
 }
@@ -54,7 +54,7 @@ int main(int argc, char* argv[])
 				return 0;
 			}
 
-			// Запись АСД в формате dot
+			// Write AST to dot
 			std::stringstream ss;
 			ss << "digraph AST {" << std::endl;
 			ss << '\t' << "node[fontname = \"helvetica\"]" << std::endl;
