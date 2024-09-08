@@ -1,5 +1,13 @@
 ## The Dragon Book Compiler in C++
 
+<p align="center">
+    <picture>
+        <source media="(prefers-color-scheme: dark)" srcset="docs/dragonbook-cpp-compiler-dark.jpg">
+        <source media="(prefers-color-scheme: light)" srcset="docs/dragonbook-cpp-compiler-light.jpg">
+        <img alt="Cover Image" width="100%">
+    </picture>
+</p>
+
 A compiler consists of a syntax-directed translator for C-like language into the intermediate three-address code (TAC) using the recursive descent parsing approach described in the Dragon Book, following the guidelines of the book but in modern C++17 instead of Java. 
 
 The program allows the export of the Abstract Syntax Tree (AST) of the parsed program into JSON format or into the Dot format in order to generate diagrams of the AST using GraphViz.
