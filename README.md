@@ -1,6 +1,17 @@
 ## The Dragon Book Compiler in C++
 
-A syntax-directed translator based on the recursive descent method for generating intermediate three-address code with the ability to export AST to JSON and GraphViz (Dot) files.
+A compiler consists of a syntax-directed translator for C-like language into the intermediate three-address code (TAC) using the recursive descent parsing approach described in the Dragon Book, following the guidelines of the book but in modern C++17 instead of Java. 
+
+The program allows the export of the Abstract Syntax Tree (AST) of the parsed program into JSON format or into the Dot format in order to generate diagrams of the AST using GraphViz.
+
+### Build
+
+```bash
+$ mkdir build
+$ cd build
+$ cmake ..
+$ make
+```
 
 ### Usage
 
@@ -14,7 +25,8 @@ Usage: <app_name> input_file [options]
 
 An example output of the following program:
 
-```
+```bash
+$ cat example2.txt
 {
 	int i;
 	i = 0;
@@ -22,6 +34,10 @@ An example output of the following program:
 		i = i + 1;
 	}
 }
+```
+
+```bash
+compiler example2.txt -j ast.json -d ast.dot
 ```
 
 Three-address code:
@@ -34,6 +50,6 @@ L4:     i = i + 1
 L2:
 ```
 
-AST in GraphViz:
+AST diagram rendered in the GraphViz:
 
 <img src="ast.png" alt="ast" width="200"/>
