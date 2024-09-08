@@ -1,0 +1,11 @@
+{
+    "cmake.debugConfig": {
+        "args": [
+            "../example2.txt",
+            "-j",
+            "res.json",
+            "-d", 
+            "res.dot"
+        ]
+    },
+}
